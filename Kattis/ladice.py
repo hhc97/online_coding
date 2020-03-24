@@ -1,4 +1,6 @@
 # https://open.kattis.com/problems/ladice
+# this solution should be correct, but perhaps due to the limitations
+# of python it exceeds the runtime limit on some later tests
 
 
 class UnionDrawer:
@@ -59,37 +61,36 @@ class UnionDrawer:
             return False
 
     def debug(self):
-        print(f'parents: {self.parents}')
+        print(f'Parents: {self.parents}')
         print(f'Capacities: {self.capacities}')
         print(f'Ranks: {self.ranks}\n')
 
 
-def time_test():
-    param = 300000
-    test = UnionDrawer([i for i in range(1, param + 1)])
-    import random
-    for _ in range(param):
-        first = random.randint(1, param)
-        second = random.randint(1, param)
-        test.union(first, second)
-        test.get_parent(random.randint(1, param))
+# def time_test():
+#     """For timing the performance of the UFDS"""
+#     param = 300000
+#     test = UnionDrawer([i for i in range(1, param + 1)])
+#     import random
+#     for _ in range(param):
+#         first = random.randint(1, param)
+#         second = random.randint(1, param)
+#         test.union(first, second)
+#         test.get_parent(random.randint(1, param))
 
 
 if __name__ == '__main__':
-    from timeit import timeit
-
-    time1 = timeit("time_test()", number=1, globals=globals())
-    print(time1)
-
-# if __name__ == '__main__':
-#     first = input().split()
-#     num_items, num_drawers = int(first[0]), int(first[1])
-#     drawers = UnionDrawer([i for i in range(1, num_drawers + 1)])
-#     for _ in range(num_items):
-#         item_drawers = input().split()
-#         drawer_a, drawer_b = int(item_drawers[0]), int(item_drawers[1])
-#         drawers.union(drawer_a, drawer_b)
-#         if drawers.insert(drawer_a):
-#             print("LADICA")
-#         else:
-#             print("SMECE")
+    # from timeit import timeit
+    #
+    # time1 = timeit("time_test()", number=1, globals=globals())
+    # print(time1)
+    first = input().split()
+    num_items, num_drawers = int(first[0]), int(first[1])
+    drawers = UnionDrawer([i for i in range(1, num_drawers + 1)])
+    for _ in range(num_items):
+        item_drawers = input().split()
+        drawer_a, drawer_b = int(item_drawers[0]), int(item_drawers[1])
+        drawers.union(drawer_a, drawer_b)
+        if drawers.insert(drawer_a):
+            print("LADICA")
+        else:
+            print("SMECE")
