@@ -31,8 +31,6 @@ class UnionDrawer:
 
     def union(self, a, b) -> None:
         """Unions sets a and b."""
-        if a == b:
-            return
         a_parent = self.get_parent(a)
         b_parent = self.get_parent(b)
         if a_parent == b_parent:
