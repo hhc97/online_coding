@@ -16,9 +16,9 @@ class UnionDrawer:
         self.capacities = {i: 1 for i in lst}
         self.ranks = {i: 0 for i in lst}
 
-    def get_parent(self, item):
+    def find(self, item):
         """
-        Gets the parent of the set.
+        Gets the parent of the set that contains <item>.
         It keeps a list of items that have been seen en route to the parent
         and sets their parent to the set's parent when done. (path compression)
         """
@@ -33,8 +33,8 @@ class UnionDrawer:
 
     def union(self, a, b) -> None:
         """Unions sets a and b."""
-        a_parent = self.get_parent(a)
-        b_parent = self.get_parent(b)
+        a_parent = self.find(a)
+        b_parent = self.find(b)
         if a_parent == b_parent:
             return
         a_rank = self.ranks[a_parent]
@@ -53,7 +53,7 @@ class UnionDrawer:
         Inserts an element into the joint set, returns whether insertion
         was successful.
         """
-        set_parent = self.get_parent(set_elem)
+        set_parent = self.find(set_elem)
         if self.capacities[set_parent] > 0:
             self.capacities[set_parent] -= 1
             return True
@@ -66,16 +66,17 @@ class UnionDrawer:
         print(f'Ranks: {self.ranks}\n')
 
 
-# def time_test():
-#     """For timing the performance of the UFDS"""
-#     param = 300000
-#     test = UnionDrawer([i for i in range(1, param + 1)])
-#     import random
-#     for _ in range(param):
-#         first = random.randint(1, param)
-#         second = random.randint(1, param)
-#         test.union(first, second)
-#         test.get_parent(random.randint(1, param))
+def time_test():
+    """For timing the performance of the UFDS"""
+    param = 300000
+    test = UnionDrawer([i for i in range(1, param + 1)])
+    import random
+    for _ in range(param):
+        item1 = random.randint(1, param)
+        item2 = random.randint(1, param)
+        item3 = random.randint(1, param)
+        test.union(item1, item2)
+        test.find(item3)
 
 
 if __name__ == '__main__':
