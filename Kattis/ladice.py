@@ -20,11 +20,14 @@ class UnionDrawer:
         It keeps a list of items that have been seen en route to the parent
         and sets their parent to the set's parent when done. (path compression)
         """
-        if self.parents[item] is None:
-            return item
-        else:
-            self.parents[item] = self.get_parent(self.parents[item])
-            return self.parents[item]
+        path_list = []
+        curr = item
+        while self.parents[curr] is not None:
+            path_list.append(curr)
+            curr = self.parents[curr]
+        for element in path_list:
+            self.parents[element] = curr
+        return curr
 
     def union(self, a, b) -> None:
         """Unions sets a and b."""
