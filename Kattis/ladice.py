@@ -1,5 +1,5 @@
 # https://open.kattis.com/problems/ladice
-# accepted answer, CPU time: 0.63s (fastest Python3 submission as of 25th March 2020)
+# accepted answer, CPU time: 0.61s (fastest Python3 submission as of 25th March 2020)
 
 
 class UnionDrawer:
