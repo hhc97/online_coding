@@ -1,6 +1,4 @@
 # https://open.kattis.com/problems/ladice
-# this solution should be correct, but perhaps due to the limitations
-# of python it exceeds the runtime limit on some later tests
 
 
 class UnionDrawer:
@@ -56,34 +54,8 @@ class UnionDrawer:
         else:
             return False
 
-    def debug(self):
-        print(f'Parents: {self.parents}')
-        print(f'Capacities: {self.capacities}')
-        print(f'Ranks: {self.ranks}\n')
-
-
-def time_test(randlist, num_sets):
-    """For timing the performance of the UFDS"""
-    test = UnionDrawer(num_sets)
-    for a, b, c in randlist:
-        test.union(a, b)
-        test.find(c)
-
 
 if __name__ == '__main__':
-    # from timeit import timeit
-    # import random
-    #
-    # sets_to_test = 300000
-    # randoms = []
-    # for _ in range(sets_to_test):
-    #     item1 = random.randint(1, sets_to_test)
-    #     item2 = random.randint(1, sets_to_test)
-    #     item3 = random.randint(1, sets_to_test)
-    #     randoms.append((item1, item2, item3))
-    #
-    # time1 = timeit("time_test(randoms, sets_to_test)", number=1, globals=globals())
-    # print(time1)
     from sys import stdin, stdout
 
     first = stdin.readline().split()
