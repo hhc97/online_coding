@@ -1,4 +1,5 @@
 # https://open.kattis.com/problems/ladice
+# accepted answer, CPU time: 0.64s
 
 
 class UnionDrawer:
@@ -11,8 +12,8 @@ class UnionDrawer:
             Associate each set with a capacity.
         """
         self.parents = [i for i in range(n + 1)]
-        self.capacities = [1 for _ in range(n + 1)]
-        self.ranks = self.capacities[:]
+        self.capacities = [1] * (n + 1)
+        self.ranks = [0] * (n + 1)
 
     def find(self, item):
         """
