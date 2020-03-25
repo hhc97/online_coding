@@ -62,23 +62,27 @@ class UnionDrawer:
         print(f'Ranks: {self.ranks}\n')
 
 
-def time_test():
+def time_test(randlist, num_sets):
     """For timing the performance of the UFDS"""
-    param = 300000
-    test = UnionDrawer(param)
-    import random
-    for _ in range(param):
-        item1 = random.randint(1, param)
-        item2 = random.randint(1, param)
-        item3 = random.randint(1, param)
-        test.union(item1, item2)
-        test.find(item3)
+    test = UnionDrawer(num_sets)
+    for a, b, c in randlist:
+        test.union(a, b)
+        test.find(c)
 
 
 if __name__ == '__main__':
     # from timeit import timeit
+    # import random
     #
-    # time1 = timeit("time_test()", number=1, globals=globals())
+    # sets_to_test = 300000
+    # randoms = []
+    # for _ in range(sets_to_test):
+    #     item1 = random.randint(1, sets_to_test)
+    #     item2 = random.randint(1, sets_to_test)
+    #     item3 = random.randint(1, sets_to_test)
+    #     randoms.append((item1, item2, item3))
+    #
+    # time1 = timeit("time_test(randoms, sets_to_test)", number=1, globals=globals())
     # print(time1)
     first = input().split()
     num_items, num_drawers = int(first[0]), int(first[1])
