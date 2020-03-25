@@ -64,8 +64,10 @@ if __name__ == '__main__':
     drawers = UnionDrawer(num_drawers)
     output = []
     for _ in range(num_items):
-        item_drawers = stdin.readline().split()
-        drawer_a, drawer_b = int(item_drawers[0]), int(item_drawers[1])
+        item_drawers = stdin.readline()
+        space_index = item_drawers.index(' ')
+        drawer_a = int(item_drawers[:space_index])
+        drawer_b = int(item_drawers[space_index + 1:])
         drawers.union(drawer_a, drawer_b)
         if drawers.insert(drawer_a):
             output.append("LADICA")
