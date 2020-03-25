@@ -6,15 +6,15 @@
 class UnionDrawer:
     """An augmented union find data structure to solve the problem"""
 
-    def __init__(self, lst) -> None:
+    def __init__(self, n) -> None:
         """
         Takes in a list as an argument, and assumes each element is an individual set.
         Modifications for this application:
             Associate each set with a capacity.
         """
-        self.parents = {i: None for i in lst}
-        self.capacities = {i: 1 for i in lst}
-        self.ranks = {i: 0 for i in lst}
+        self.parents = [i for i in range(n + 1)]
+        self.capacities = [1 for _ in range(n + 1)]
+        self.ranks = self.capacities[:]
 
     def find(self, item):
         """
@@ -22,14 +22,10 @@ class UnionDrawer:
         It keeps a list of items that have been seen en route to the parent
         and sets their parent to the set's parent when done. (path compression)
         """
-        path_list = []
-        curr = item
-        while self.parents[curr] is not None:
-            path_list.append(curr)
-            curr = self.parents[curr]
-        for element in path_list:
-            self.parents[element] = curr
-        return curr
+        if self.parents[item] == item:
+            return item
+        self.parents[item] = self.find(self.parents[item])
+        return self.parents[item]
 
     def union(self, a, b) -> None:
         """Unions sets a and b."""
@@ -69,7 +65,7 @@ class UnionDrawer:
 def time_test():
     """For timing the performance of the UFDS"""
     param = 300000
-    test = UnionDrawer([i for i in range(1, param + 1)])
+    test = UnionDrawer(param)
     import random
     for _ in range(param):
         item1 = random.randint(1, param)
@@ -86,7 +82,7 @@ if __name__ == '__main__':
     # print(time1)
     first = input().split()
     num_items, num_drawers = int(first[0]), int(first[1])
-    drawers = UnionDrawer([i for i in range(1, num_drawers + 1)])
+    drawers = UnionDrawer(num_drawers)
     for _ in range(num_items):
         item_drawers = input().split()
         drawer_a, drawer_b = int(item_drawers[0]), int(item_drawers[1])
