@@ -84,14 +84,18 @@ if __name__ == '__main__':
     #
     # time1 = timeit("time_test(randoms, sets_to_test)", number=1, globals=globals())
     # print(time1)
+    from sys import stdout
+
     first = input().split()
     num_items, num_drawers = int(first[0]), int(first[1])
     drawers = UnionDrawer(num_drawers)
+    output = []
     for _ in range(num_items):
         item_drawers = input().split()
         drawer_a, drawer_b = int(item_drawers[0]), int(item_drawers[1])
         drawers.union(drawer_a, drawer_b)
         if drawers.insert(drawer_a):
-            print("LADICA")
+            output.append("LADICA")
         else:
-            print("SMECE")
+            output.append("SMECE")
+    stdout.write("\n".join(output))
