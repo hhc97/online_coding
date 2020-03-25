@@ -1,13 +1,13 @@
 # https://open.kattis.com/problems/ladice
-# accepted answer, CPU time: 0.64s
+# accepted answer, CPU time: 0.63s (fastest Python3 submission as of 25th March 2020)
 
 
 class UnionDrawer:
     """An augmented union find data structure to solve the problem"""
 
-    def __init__(self, n) -> None:
+    def __init__(self, n: int) -> None:
         """
-        Takes in a list as an argument, and assumes each element is an individual set.
+        Takes in an int as an argument, and creates that number of disjoint sets.
         Modifications for this application:
             Associate each set with a capacity.
         """
@@ -15,19 +15,18 @@ class UnionDrawer:
         self.capacities = [1] * (n + 1)
         self.ranks = [0] * (n + 1)
 
-    def find(self, item):
+    def find(self, item: int) -> int:
         """
-        Gets the parent of the set that contains <item>.
-        It keeps a list of items that have been seen en route to the parent
-        and sets their parent to the set's parent when done. (path compression)
+        Returns the representative element of the set that <item> is in.
+        Does path compression to reduce future find() times.
         """
         if self.parents[item] == item:
             return item
         self.parents[item] = self.find(self.parents[item])
         return self.parents[item]
 
-    def union(self, a, b) -> None:
-        """Unions sets a and b."""
+    def union(self, a: int, b: int) -> None:
+        """Unions sets a and b with the weighted union heuristic"""
         a_parent = self.find(a)
         b_parent = self.find(b)
         if a_parent == b_parent:
@@ -43,7 +42,7 @@ class UnionDrawer:
             if a_rank == b_rank:
                 self.ranks[a_parent] += 1
 
-    def insert(self, set_elem) -> bool:
+    def insert(self, set_elem: int) -> bool:
         """
         Inserts an element into the joint set, returns whether insertion
         was successful.
