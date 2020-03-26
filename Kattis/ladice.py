@@ -1,5 +1,5 @@
 # https://open.kattis.com/problems/ladice
-# accepted answer, CPU time: 0.61s (fastest Python3 submission as of 25th March 2020)
+# accepted answer, CPU time: 0.42s (fastest Python3 submission as of 26th March 2020)
 
 
 class UnionDrawer:
@@ -20,10 +20,13 @@ class UnionDrawer:
         Returns the representative element of the set that <item> is in.
         Does path compression to reduce future find() times.
         """
-        if self.parents[item] == item:
-            return item
-        self.parents[item] = self.find(self.parents[item])
-        return self.parents[item]
+        seen = []
+        while item != self.parents[item]:
+            seen.append(item)
+            item = self.parents[item]
+        for value in seen:
+            self.parents[value] = item
+        return item
 
     def union(self, a: int, b: int) -> None:
         """Unions sets a and b with the weighted union heuristic"""
