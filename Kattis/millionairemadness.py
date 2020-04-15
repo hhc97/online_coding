@@ -75,10 +75,24 @@ def get_path(mst, start, end):
     return path[::-1]
 
 
-if __name__ == '__main__':
-    from sys import stdin, stdout
+def get_min_ladder_height(path, bank_map):
+    min_height = 0
 
-    output = []
+    def _get_orig_coords(index):
+        return divmod(index - 1, len(bank_map[0]))
+
+    for i in range(1, len(path)):
+        s1, s2 = _get_orig_coords(path[i - 1])
+        e1, e2 = _get_orig_coords(path[i])
+        height_diff = bank_map[e1][e2] - bank_map[s1][s2]
+        if height_diff > min_height:
+            min_height = height_diff
+    return str(min_height)
+
+
+if __name__ == '__main__':
+    from sys import stdin
+
     bank_vault = []
 
     num_rows, num_cols = _get_numbers()
@@ -86,5 +100,4 @@ if __name__ == '__main__':
         bank_vault.append(_get_numbers())
 
     best_path = get_path(prim(bank_vault), 1, num_rows * num_cols)
-
-    stdout.write("\n".join(output))
+    print(get_min_ladder_height(best_path, bank_vault))
