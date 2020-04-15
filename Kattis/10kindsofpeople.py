@@ -1,4 +1,5 @@
 # https://open.kattis.com/problems/10kindsofpeople
+# accepted answer, CPU time: 0.84s
 
 
 def _get_numbers():
@@ -19,15 +20,16 @@ def _get_map_copy():
 
 
 def _color(r, c, grid, orig, color_value):
-    if 0 <= r < len(grid) and 0 <= c < len(grid[0]):
-        if grid[r][c] != orig or grid[r][c] == color_value:
-            return
-        if grid[r][c] == orig:
-            grid[r][c] = color_value
-            _color(r - 1, c, grid, orig, color_value)
-            _color(r + 1, c, grid, orig, color_value)
-            _color(r, c - 1, grid, orig, color_value)
-            _color(r, c + 1, grid, orig, color_value)
+    row_limit = len(grid)
+    col_limit = len(grid[0])
+    q = [[r, c]]
+    while q:
+        row, col = q.pop()
+        if 0 <= row < row_limit and 0 <= col < col_limit:
+            color = grid[row][col]
+            if color == orig:
+                grid[row][col] = color_value
+                q.extend([[row - 1, col], [row + 1, col], [row, col - 1], [row, col + 1]])
 
 
 if __name__ == '__main__':
