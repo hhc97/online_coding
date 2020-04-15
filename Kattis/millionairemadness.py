@@ -10,9 +10,13 @@ def _get_numbers():
     return numbers if len(numbers) > 1 else numbers[0]
 
 
-def make_adjacency_list(grid):
+def _make_adjacency_list(grid):
     d = {}
     max_row, max_col = len(grid), len(grid[0])
+
+    def _get_vertex_num(row, col):
+        return max_col * row + col + 1
+
     for i in range(max_row):
         for j in range(max_col):
             neighbors = []
@@ -20,11 +24,10 @@ def make_adjacency_list(grid):
                 for j2 in range(j - 1, j + 2):
                     if i2 != i or j2 != j:
                         if 0 <= i2 < max_row and 0 <= j2 < max_col:
-                            if i2 == i:
-                                neighbors.append(grid[i2][j2])
-                            if j2 == j:
-                                neighbors.append(grid[i2][j2])
-            d[grid[i][j]] = neighbors
+                            if i2 == i or j2 == j:
+                                weight = abs(grid[i][j] - grid[i2][j2])
+                                neighbors.append([_get_vertex_num(i2, j2), weight])
+            d[_get_vertex_num(i, j)] = neighbors
     return d
 
 
