@@ -56,6 +56,25 @@ def prim(grid):
     return mst
 
 
+def invert_tree(mst):
+    new_dict = {}
+    for k, v in mst.items():
+        for item in v:
+            new_dict[item] = k
+    return new_dict
+
+
+def get_path(mst, start, end):
+    tree = invert_tree(mst)
+    path = [end]
+    curr = end
+    while curr != start:
+        parent = tree[curr]
+        path.append(parent)
+        curr = parent
+    return path[::-1]
+
+
 if __name__ == '__main__':
     from sys import stdin, stdout
 
@@ -65,5 +84,7 @@ if __name__ == '__main__':
     num_rows, num_cols = _get_numbers()
     for _ in range(num_rows):
         bank_vault.append(_get_numbers())
+
+    best_path = get_path(prim(bank_vault), 1, num_rows * num_cols)
 
     stdout.write("\n".join(output))
