@@ -1,6 +1,9 @@
 # https://open.kattis.com/problems/millionairemadness
 
 
+from heapq import heapify, heappush, heappop
+
+
 def _get_numbers():
     """
     Gets a line of input from stdin and return the numbers in a list.
@@ -29,6 +32,28 @@ def _make_adjacency_list(grid):
                                 neighbors[_get_vertex_num(i2, j2)] = weight
             d[_get_vertex_num(i, j)] = neighbors
     return d
+
+
+def prim(grid):
+    """
+    Uses Prim's algorithm to find a MST for <grid>.
+    The MST is represented in the form of Dict[Int, Set[Int]].
+    """
+    adjacency_list = _make_adjacency_list(grid)
+    mst = {}
+    visited = {1}
+    edges = [(w, 1, v) for v, w in adjacency_list[1].items()]
+    heapify(edges)
+
+    while edges:
+        cost, frm, to = heappop(edges)
+        if to not in visited:
+            visited.add(to)
+            mst.setdefault(frm, set()).add(to)
+            for to_next, cost in adjacency_list[to].items():
+                if to_next not in visited:
+                    heappush(edges, (cost, to, to_next))
+    return mst
 
 
 if __name__ == '__main__':
