@@ -19,14 +19,14 @@ def _make_adjacency_list(grid):
 
     for i in range(max_row):
         for j in range(max_col):
-            neighbors = []
+            neighbors = {}
             for i2 in range(i - 1, i + 2):
                 for j2 in range(j - 1, j + 2):
                     if i2 != i or j2 != j:
                         if 0 <= i2 < max_row and 0 <= j2 < max_col:
                             if i2 == i or j2 == j:
                                 weight = abs(grid[i][j] - grid[i2][j2])
-                                neighbors.append([_get_vertex_num(i2, j2), weight])
+                                neighbors[_get_vertex_num(i2, j2)] = weight
             d[_get_vertex_num(i, j)] = neighbors
     return d
 
