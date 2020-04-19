@@ -40,10 +40,13 @@ def make_adjacency_list():
             if i != j:
                 adj_lst.setdefault(i + 1, []).append(
                     [get_cannon_time(cannons[i], cannons[j]), j + 1])
-        adj_lst.setdefault(i + 1, []).append([get_cannon_time(cannons[i], destination), 'd'])
+        adj_lst.setdefault(i + 1, []).append(
+            [get_cannon_time(cannons[i], destination), num_cannons + 1])
     for c in range(num_cannons):
-        adj_lst.setdefault(0, []).append([get_walk_time(start, cannons[c]), c + 1])
-    adj_lst.setdefault(0, []).append([get_walk_time(start, destination), 'd'])
+        adj_lst.setdefault(0, []).append(
+            [get_walk_time(start, cannons[c]), c + 1])
+    adj_lst.setdefault(0, []).append(
+        [get_walk_time(start, destination), num_cannons + 1])
     return adj_lst
 
 
