@@ -21,6 +21,18 @@ def get_dist(a, b) -> float:
     return sqrt(x_diff ** 2 + y_diff ** 2)
 
 
+def get_walk_time(a, b):
+    return get_dist(a, b) / 5
+
+
+def get_cannon_time(a, b):
+    dist = get_dist(a, b)
+    if dist >= 50:
+        return (dist - 50) / 5 + 2
+    else:
+        return min(dist / 5, (50 - dist) / 5 + 2)
+
+
 if __name__ == '__main__':
     from sys import stdin
 
