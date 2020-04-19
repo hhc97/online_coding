@@ -1,6 +1,9 @@
 # https://open.kattis.com/problems/humancannonball
 
 
+from math import sqrt
+
+
 def _get_numbers():
     """
     Gets a line of input from stdin and return the numbers in a list.
@@ -8,6 +11,14 @@ def _get_numbers():
     """
     numbers = [float(v) for v in stdin.readline().split()]
     return numbers if len(numbers) > 1 else numbers[0]
+
+
+def get_dist(a, b) -> float:
+    """returns the distance between points a and b"""
+    x1, y1 = a
+    x2, y2 = b
+    x_diff, y_diff = x1 - x2, y1 - y2
+    return sqrt(x_diff ** 2 + y_diff ** 2)
 
 
 if __name__ == '__main__':
