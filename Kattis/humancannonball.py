@@ -33,11 +33,25 @@ def get_cannon_time(a, b):
         return min(dist / 5, (50 - dist) / 5 + 2)
 
 
+def make_adjacency_list():
+    adj_lst = {}
+    for i in range(num_cannons):
+        for j in range(num_cannons):
+            if i != j:
+                adj_lst.setdefault(i + 1, []).append(
+                    [get_cannon_time(cannons[i], cannons[j]), j + 1])
+        adj_lst.setdefault(i + 1, []).append([get_cannon_time(cannons[i], destination), 'd'])
+    for c in range(num_cannons):
+        adj_lst.setdefault(0, []).append([get_walk_time(start, cannons[c]), c + 1])
+    adj_lst.setdefault(0, []).append([get_walk_time(start, destination), 'd'])
+    return adj_lst
+
+
 if __name__ == '__main__':
     from sys import stdin
 
-    start_x, start_y = _get_numbers()
-    dest_x, dest_y = _get_numbers()
+    start = _get_numbers()
+    destination = _get_numbers()
 
     num_cannons = int(_get_numbers())
     cannons = []
