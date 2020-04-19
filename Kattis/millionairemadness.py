@@ -1,4 +1,5 @@
 # https://open.kattis.com/problems/millionairemadness
+# not accepted, solution too slow
 
 
 from heapq import heapify, heappush, heappop
