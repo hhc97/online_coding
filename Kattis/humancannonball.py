@@ -1,9 +1,8 @@
 # https://open.kattis.com/problems/humancannonball
-# accepted answer, CPU time: 0.09s
+# accepted answer, CPU time: 0.07s
 
 
 from math import sqrt, inf
-from heapq import heapify, heappop
 
 
 def _get_numbers():
@@ -53,21 +52,29 @@ def make_adjacency_list():
     return adj_lst
 
 
+def get_smallest_vertex(lst: list):
+    min_index, min_value = 0, inf
+    for i in range(len(lst)):
+        value = lst[i][0]
+        if value < min_value:
+            min_index = i
+            min_value = value
+    return lst.pop(min_index)
+
+
 def find_shortest_time(adj_list):
     """Uses Dijkstra's"""
     unvisited = [[inf, c] for c in range(1, num_cannons + 2)]
     unvisited.insert(0, [0, 0])
     shortest = unvisited[:]
-    heapify(unvisited)
 
     while unvisited:
-        dist, vertex_no = heappop(unvisited)
+        dist, vertex_no = get_smallest_vertex(unvisited)
         for neighbor in adj_list[vertex_no]:
             neighbor_dist, neighbor_vertex_no = neighbor
             new_dist = dist + neighbor_dist
             if new_dist < shortest[neighbor_vertex_no][0]:
                 shortest[neighbor_vertex_no][0] = new_dist
-        heapify(unvisited)  # need to re-heapify, as distances are modified
     return shortest[num_cannons + 1][0]
 
 
