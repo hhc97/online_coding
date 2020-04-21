@@ -2,6 +2,21 @@
 # accepted answer, CPU time: 0.07s
 
 
+"""
+Sample input:
+25.0 100.0
+190.0 57.5
+4
+125.0 67.5
+75.0 125.0
+45.0 72.5
+185.0 102.5
+
+Sample output:
+19.984901
+
+"""
+
 from math import sqrt, inf
 
 

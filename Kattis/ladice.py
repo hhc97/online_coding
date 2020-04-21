@@ -2,6 +2,25 @@
 # accepted answer, CPU time: 0.42s (fastest Python3 submission as of 26th March 2020)
 
 
+"""
+Sample input:
+5 3
+1 2
+1 3
+1 2
+1 3
+1 2
+
+Sample output:
+LADICA
+LADICA
+LADICA
+SMECE
+SMECE
+
+"""
+
+
 class UnionDrawer:
     """An augmented union find data structure to solve the problem"""
 

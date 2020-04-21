@@ -1,6 +1,22 @@
 # https://open.kattis.com/problems/fizzbuzz
 # accepted answer, CPU time: 0.05s
 
+
+"""
+Sample input:
+2 3 7
+
+Sample output:
+1
+Fizz
+Buzz
+Fizz
+5
+FizzBuzz
+7
+
+"""
+
 if __name__ == '__main__':
     from sys import stdin, stdout
 

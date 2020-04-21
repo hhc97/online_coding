@@ -1,6 +1,29 @@
 # https://open.kattis.com/problems/weakvertices
 # accepted answer, CPU time: 0.07s
 
+
+"""
+Sample input:
+9
+0 1 1 1 0 0 0 0 0
+1 0 0 0 0 0 1 0 0
+1 0 0 1 0 1 0 0 0
+1 0 1 0 0 1 1 0 0
+0 0 0 0 0 0 1 1 0
+0 0 1 1 0 0 0 0 0
+0 1 0 1 1 0 0 1 0
+0 0 0 0 1 0 1 0 1
+0 0 0 0 0 0 0 1 0
+1
+0
+-1
+
+Sample output:
+1 8
+0
+
+"""
+
 if __name__ == '__main__':
     from sys import stdin, stdout
 
