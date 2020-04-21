@@ -1,4 +1,5 @@
 # https://open.kattis.com/problems/2048
+# accepted answer, CPU time: 0.05s
 
 
 def _get_numbers():
@@ -28,8 +29,17 @@ def move_left(orig: list):
             if row[i] == row[i + 1]:
                 row[i] *= 2
                 row[i + 1] = 0
-                break
     return _fill_left(orig)
+
+
+def rotate_grid(orig: list, degree: int):
+    """Returns a rotated grid by <degree> degrees clockwise"""
+    if degree == 90:
+        return [list(row) for row in zip(*orig[::-1])]
+    elif degree == -90:
+        return [list(row) for row in zip(*orig)][::-1]
+    elif degree == 180 or degree == -180:
+        return [row[::-1] for row in orig][::-1]
 
 
 if __name__ == '__main__':
@@ -43,4 +53,28 @@ if __name__ == '__main__':
 
     move_direction = _get_numbers()
 
+    # left
+    if move_direction == 0:
+        output = move_left(grid)
+
+    # up
+    elif move_direction == 1:
+        rotated = rotate_grid(grid, -90)
+        rotated = move_left(rotated)
+        output = rotate_grid(rotated, 90)
+
+    # right
+    elif move_direction == 2:
+        rotated = rotate_grid(grid, 180)
+        rotated = move_left(rotated)
+        output = rotate_grid(rotated, -180)
+
+    # down
+    elif move_direction == 3:
+        rotated = rotate_grid(grid, 90)
+        rotated = move_left(rotated)
+        output = rotate_grid(rotated, -90)
+
+    output = [[str(i) for i in row] for row in output]
+    output = [' '.join(row) for row in output]
     stdout.write("\n".join(output))
