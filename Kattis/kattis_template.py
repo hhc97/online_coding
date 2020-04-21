@@ -1,4 +1,5 @@
 # https://open.kattis.com/problems/PROBLEM_ID
+# accepted answer, CPU time: 0.05s
 
 
 def _get_numbers():
