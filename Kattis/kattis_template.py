@@ -2,6 +2,14 @@
 # accepted answer, CPU time: 0.05s
 
 
+"""
+Sample input:
+
+Sample output:
+
+"""
+
+
 def _get_numbers():
     """
     Gets a line of input from stdin and return the numbers in a list.
