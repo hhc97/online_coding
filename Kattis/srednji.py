@@ -38,6 +38,32 @@ def modify_list(lst, median):
             lst[i] = 0
 
 
+def _check_odd(start_index, end_index):
+    return ((end_index + 1) - start_index) % 2 == 1
+
+
+def count_sublists(lst):
+    seen = {}
+    running_sum = 0
+    total = 0
+
+    for i in range(len(lst)):
+        running_sum += lst[i]
+
+        if running_sum == 0:
+            total += _check_odd(0, i)
+
+        all_previous = []
+        if running_sum in seen:
+            all_previous = seen[running_sum]
+            for index in all_previous:
+                total += _check_odd(index + 1, i)
+
+        all_previous.append(i)
+        seen[running_sum] = all_previous
+    return total
+
+
 if __name__ == '__main__':
     from sys import stdin
 
@@ -45,4 +71,4 @@ if __name__ == '__main__':
     number_lst = _get_numbers()
 
     modify_list(number_lst, b)
-    print(number_lst)
+    print(count_sublists(number_lst))
