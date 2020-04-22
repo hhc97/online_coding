@@ -21,43 +21,28 @@ def _get_numbers():
     return numbers if len(numbers) > 1 else numbers[0]
 
 
-def median(lst: list) -> int:
-    """
-    Returns the median of the lst if the length is odd, else return 0.
-    For len(lst) < 100000, using sorted() is faster than quickselect.
-    """
-    if len(lst) % 2 == 0:
-        return 0
-    return sorted(lst)[len(lst) // 2]
+def get_median_index(lst, median):
+    for i in range(len(lst)):
+        if lst[i] == median:
+            return i
 
 
-seen = set()
-
-
-def get_num_medians(lst, wanted):
-    total = 0
-    curr_median = median(lst)
-    if curr_median == wanted:
-        if lst not in seen:
-            seen.add(lst)
-            total += 1
+def modify_list(lst, median):
+    for i in range(len(lst)):
+        value = lst[i]
+        if value < median:
+            lst[i] = -1
+        elif value > median:
+            lst[i] = 1
         else:
-            return 0
-    if len(lst) == 1:
-        return total
-    total += get_num_medians(lst[:-2], wanted)
-    total += get_num_medians(lst[2:], wanted)
-    total += get_num_medians(lst[1:-1], wanted)
-    return total
+            lst[i] = 0
 
 
 if __name__ == '__main__':
     from sys import stdin
 
     n, b = _get_numbers()
-    number_lst = tuple(_get_numbers())
+    number_lst = _get_numbers()
 
-    if len(number_lst) % 2 == 1:
-        print(get_num_medians(number_lst, b))
-    else:
-        print(get_num_medians(number_lst[1:], b) + get_num_medians(number_lst[:-1], b))
+    modify_list(number_lst, b)
+    print(number_lst)
