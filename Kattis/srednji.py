@@ -31,10 +31,33 @@ def median(lst: list) -> int:
     return sorted(lst)[len(lst) // 2]
 
 
+seen = set()
+
+
+def get_num_medians(lst, wanted):
+    total = 0
+    curr_median = median(lst)
+    if curr_median == wanted:
+        if lst not in seen:
+            seen.add(lst)
+            total += 1
+        else:
+            return 0
+    if len(lst) == 1:
+        return total
+    total += get_num_medians(lst[:-2], wanted)
+    total += get_num_medians(lst[2:], wanted)
+    total += get_num_medians(lst[1:-1], wanted)
+    return total
+
+
 if __name__ == '__main__':
     from sys import stdin
 
     n, b = _get_numbers()
-    number_lst = _get_numbers()
+    number_lst = tuple(_get_numbers())
 
-    curr_median = median(number_lst)
+    if len(number_lst) % 2 == 1:
+        print(get_num_medians(number_lst, b))
+    else:
+        print(get_num_medians(number_lst[1:], b) + get_num_medians(number_lst[:-1], b))
