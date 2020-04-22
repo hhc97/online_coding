@@ -21,47 +21,36 @@ def _get_numbers():
     return numbers if len(numbers) > 1 else numbers[0]
 
 
-def get_median_index(lst, median):
+def find_median_index(lst, median):
     for i in range(len(lst)):
         if lst[i] == median:
             return i
 
 
-def modify_list(lst, median):
-    for i in range(len(lst)):
-        value = lst[i]
-        if value < median:
-            lst[i] = -1
-        elif value > median:
-            lst[i] = 1
-        else:
-            lst[i] = 0
-
-
-def _check_odd(start_index, end_index):
-    return ((end_index + 1) - start_index) % 2 == 1
-
-
-def count_sublists(lst):
-    seen = {}
-    running_sum = 0
+def count_sublists(lst, median):
+    median_index = find_median_index(lst, median)
+    d = dict()
+    d[0] = 1
     total = 0
+    for i in range(median_index + 1, len(lst)):
+        if lst[i] > median:
+            total += 1
+        else:
+            total -= 1
+        if total in d:
+            d[total] += 1
+        else:
+            d[total] = 1
 
-    for i in range(len(lst)):
-        running_sum += lst[i]
-
-        if running_sum == 0:
-            total += _check_odd(0, i)
-
-        all_previous = []
-        if running_sum in seen:
-            all_previous = seen[running_sum]
-            for index in all_previous:
-                total += _check_odd(index + 1, i)
-
-        all_previous.append(i)
-        seen[running_sum] = all_previous
-    return total
+    answer = d[0]
+    total = 0
+    for i in range(median_index - 1, -1, -1):
+        if lst[i] > median:
+            total += 1
+        else:
+            total -= 1
+        answer += d.setdefault(-total, 0)
+    return answer
 
 
 if __name__ == '__main__':
@@ -70,5 +59,4 @@ if __name__ == '__main__':
     n, b = _get_numbers()
     number_lst = _get_numbers()
 
-    modify_list(number_lst, b)
-    print(count_sublists(number_lst))
+    print(count_sublists(number_lst, b))
