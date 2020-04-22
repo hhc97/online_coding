@@ -21,10 +21,20 @@ def _get_numbers():
     return numbers if len(numbers) > 1 else numbers[0]
 
 
+def median(lst: list) -> int:
+    """
+    Returns the median of the lst if the length is odd, else return 0.
+    For len(lst) < 100000, using sorted() is faster than quickselect.
+    """
+    if len(lst) % 2 == 0:
+        return 0
+    return sorted(lst)[len(lst) // 2]
+
+
 if __name__ == '__main__':
     from sys import stdin
 
-    output = []
-
     n, b = _get_numbers()
     number_lst = _get_numbers()
+
+    curr_median = median(number_lst)
