@@ -1,4 +1,5 @@
 # https://open.kattis.com/problems/srednji
+# accepted answer, CPU time: 0.10s
 
 
 """
