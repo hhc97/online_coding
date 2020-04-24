@@ -1,4 +1,5 @@
 # https://open.kattis.com/problems/polymul1
+# accepted answer, CPU time: 0.13s
 
 
 """
@@ -31,6 +32,16 @@ def _get_numbers():
     return numbers if len(numbers) > 1 else numbers[0]
 
 
+def multiply(x, y):
+    """
+    <a> and <b> are provided in the form [degree, value].
+    Returns the value of the product of a and b.
+    """
+    deg_a, val_a = x
+    deg_b, val_b = y
+    return [deg_a + deg_b, val_a * val_b]
+
+
 if __name__ == '__main__':
     from sys import stdin, stdout
 
@@ -43,6 +54,24 @@ if __name__ == '__main__':
         poly_a = _get_numbers()
         degree_b = _get_numbers()
         poly_b = _get_numbers()
-        print(degree_a, degree_b, poly_a, poly_b)
+
+        result = {}
+        result_degree = 0
+        for a in range(degree_a + 1):
+            for b in range(degree_b + 1):
+                coeff_a = poly_a[a]
+                coeff_b = poly_b[b]
+                product_degree, product_coeff = multiply([a, coeff_a], [b, coeff_b])
+                if product_degree > result_degree:
+                    result_degree = product_degree
+                if product_degree in result:
+                    result[product_degree] += product_coeff
+                else:
+                    result[product_degree] = product_coeff
+        output.append(str(result_degree))
+        string_out = []
+        for deg in range(result_degree + 1):
+            string_out.append(str(result.setdefault(deg, 0)))
+        output.append(' '.join(string_out))
 
     stdout.write("\n".join(output))
