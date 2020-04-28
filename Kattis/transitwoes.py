@@ -24,6 +24,16 @@ def _get_numbers(first=False):
     return numbers[0] if first else numbers
 
 
+def get_bus_wait(elapsed: int, bus_interval: int) -> int:
+    """Returns the amount of time to wait until the next bus arrives."""
+    if elapsed == 0 or elapsed == bus_interval:
+        return 0
+    if elapsed < bus_interval:
+        return bus_interval - elapsed
+    else:
+        return bus_interval - (elapsed % bus_interval)
+
+
 if __name__ == '__main__':
     from sys import stdin
 
