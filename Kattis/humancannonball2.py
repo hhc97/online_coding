@@ -1,4 +1,5 @@
 # https://open.kattis.com/problems/humancannonball2
+# accepted answer, CPU time: 0.05s
 
 
 """
@@ -31,14 +32,35 @@ Safe
 
 """
 
+from math import cos, sin, pi
+
 
 def _get_numbers(first=False):
     """
     Gets a line of input from stdin and return the numbers in a list.
     If <first> is True, then return the first element of the list.
     """
-    numbers = [int(v) for v in stdin.readline().split()]
+    numbers = [float(v) for v in stdin.readline().split()]
     return numbers[0] if first else numbers
+
+
+def deg_to_radian(deg: float) -> float:
+    return deg * (pi / 180)
+
+
+def check_safe(lst: list) -> str:
+    """Returns whether this launch makes it through safely."""
+    v0, theta, x1, h1, h2 = lst
+
+    theta = deg_to_radian(theta)
+
+    cross_time = x1 / (v0 * cos(theta))
+
+    y_at_cross = v0 * cross_time * sin(theta) - 0.5 * 9.81 * cross_time ** 2
+
+    if h2 - y_at_cross >= 1 and y_at_cross - h1 >= 1:
+        return 'Safe'
+    return 'Not Safe'
 
 
 if __name__ == '__main__':
@@ -46,9 +68,9 @@ if __name__ == '__main__':
 
     output = []
 
-    n = _get_numbers(True)
+    n = int(_get_numbers(True))
 
     for _ in range(n):
-        pass
+        output.append(check_safe(_get_numbers()))
 
     stdout.write("\n".join(output))
