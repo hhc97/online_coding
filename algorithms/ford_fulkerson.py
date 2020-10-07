@@ -20,17 +20,14 @@ def get_path(network: dict, source: str, sink: str, seen=None) -> list:
     return []
 
 
-def invert_dict(network: dict) -> dict:
+def add_residuals(network: dict) -> None:
     """
-    Inverts the network to create a residual graph.
+    Adds backward edges along the network to create a residual graph.
     """
-    inverted = {}
     for node, edges in network.items():
         for key in edges:
-            if key not in inverted:
-                inverted[key] = {}
-            inverted[key][node] = 0
-    return inverted
+            if node not in network[key]:
+                network[key][node] = 0
 
 
 def ford_fulkerson(network: dict, source: str, sink: str) -> int:
