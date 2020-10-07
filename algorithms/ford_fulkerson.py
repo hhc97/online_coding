@@ -1,3 +1,11 @@
+def get_path(network: dict, source: str, sink: str) -> list:
+    """
+    Returns a path with positive capacity from <source> to <sink>,
+    or None if there is no such path.
+    """
+    pass
+
+
 def ford_fulkerson(network: dict, source: str, sink: str) -> int:
     """
     The Ford-Fulkerson algorithm for maximum flow.
