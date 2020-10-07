@@ -1,7 +1,7 @@
 def get_path(network: dict, source: str, sink: str, seen=None) -> list:
     """
     Returns a path with positive capacity from <source> to <sink>,
-    or None if there is no such path.
+    or None if there is no such path. This is done through a recursive DFS.
     """
     if seen is None:
         seen = set()
