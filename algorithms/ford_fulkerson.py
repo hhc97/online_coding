@@ -1,9 +1,22 @@
-def get_path(network: dict, source: str, sink: str) -> list:
+def get_path(network: dict, source: str, sink: str, seen=None) -> list:
     """
     Returns a path with positive capacity from <source> to <sink>,
     or None if there is no such path.
     """
-    pass
+    if seen is None:
+        seen = set()
+    seen.add(source)
+
+    to_visit = list(network[source].keys())
+    for node in to_visit:
+        if node not in seen:
+            if network[source][node] > 0:
+                if node == sink:
+                    return [node]
+                path = get_path(network, node, sink, seen)
+                if path:
+                    return [node] + path
+    return []
 
 
 def ford_fulkerson(network: dict, source: str, sink: str) -> int:
