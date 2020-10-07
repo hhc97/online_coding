@@ -10,12 +10,13 @@ def get_path(network: dict, source: str, sink: str, seen=None) -> list:
     to_visit = list(network[source].keys())
     for node in to_visit:
         if node not in seen:
-            if network[source][node] > 0:
+            capacity = network[source][node]
+            if capacity > 0:
                 if node == sink:
-                    return [node]
+                    return [[node, capacity]]
                 path = get_path(network, node, sink, seen)
                 if path:
-                    return [node] + path
+                    return [[node, capacity]] + path
     return []
 
 
