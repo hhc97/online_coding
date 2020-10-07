@@ -70,7 +70,7 @@ def ford_fulkerson(network: dict, source: str, sink: str) -> int:
     add_residuals(network)
     # find a path from source to sink in the residual graph
     path = get_path(network, source, sink)
-    # while a path exists from source to sink, augment the flow in that path
+    # while a path exists from source to sink, augment the flow along that path
     while path:
         augment_flow(network,
                      [source] + [n[0] for n in path],
