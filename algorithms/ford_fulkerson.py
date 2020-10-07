@@ -30,6 +30,19 @@ def add_residuals(network: dict) -> None:
                 network[key][node] = 0
 
 
+def augment_flow(network: dict, path: list, amount: int) -> None:
+    """
+    Augments the flow along <path> by <amount> and updates the network.
+    """
+    curr = path[0]
+    for n in path[1:]:
+        network[curr][n] -= amount
+        curr = n
+    for n in path[:-1][::-1]:
+        network[curr][n] += amount
+        curr = n
+
+
 def ford_fulkerson(network: dict, source: str, sink: str) -> int:
     """
     The Ford-Fulkerson algorithm for maximum flow.
@@ -44,7 +57,16 @@ def ford_fulkerson(network: dict, source: str, sink: str) -> int:
     >>> ford_fulkerson(d, 's', 't')
     21
     """
-    pass
+    add_residuals(network)
+
+    path = get_path(network, source, sink)
+
+    while path:
+        augment_flow(network,
+                     [source] + [n[0] for n in path],
+                     min(n[1] for n in path))
+        path = get_path(network, source, sink)
+    return sum(network[sink].values())
 
 
 if __name__ == '__main__':
