@@ -34,13 +34,12 @@ def augment_flow(network: dict, path: list, amount: int) -> None:
     """
     Augments the flow along <path> by <amount> and updates the network.
     """
-    curr = path[0]
-    for n in path[1:]:
-        network[curr][n] -= amount
-        curr = n
-    for n in path[:-1][::-1]:
-        network[curr][n] += amount
-        curr = n
+    for i in range(len(path) - 1):
+        flow_out, flow_in = path[i], path[i + 1]
+        # deduct augmented flow from forward edge
+        network[flow_out][flow_in] -= amount
+        # add augmented flow to reverse edge
+        network[flow_in][flow_out] += amount
 
 
 def ford_fulkerson(network: dict, source: str, sink: str) -> int:
