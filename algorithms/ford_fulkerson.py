@@ -52,7 +52,6 @@ def ford_fulkerson(network: dict, source: str, sink: str) -> int:
     ...      'c': {'t': 9},
     ...      'd': {'c': 4, 't': 7},
     ...      't': {}}
-
     >>> ford_fulkerson(d, 's', 't')
     21
 
@@ -64,18 +63,19 @@ def ford_fulkerson(network: dict, source: str, sink: str) -> int:
     ...      '6': {'7': 15, 't': 10},
     ...      '7': {'3': 6, 't': 10},
     ...      't': {}}
-
     >>> ford_fulkerson(d, 's', 't')
     28
     """
+    # make residual graph by initializing reverse edges to 0
     add_residuals(network)
-
+    # find a path from source to sink in the residual graph
     path = get_path(network, source, sink)
-
+    # while a path exists from source to sink, augment the flow in that path
     while path:
         augment_flow(network,
                      [source] + [n[0] for n in path],
                      min(n[1] for n in path))
+        # check if another path exists, repeat
         path = get_path(network, source, sink)
     return sum(network[sink].values())
 
