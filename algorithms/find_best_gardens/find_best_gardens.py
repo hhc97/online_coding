@@ -9,7 +9,7 @@ def generate_gardens(num_gardens: int, upper: int):
     return lst
 
 
-def find_smartest(gardens):
+def find_smartest_brute_force(gardens):
     smartest = []
     for i in range(len(gardens)):
         target1, target2 = gardens[i]
@@ -30,4 +30,4 @@ test = [(27, 88), (96, 45), (85, 68), (73, 44), (71, 73), (87, 42), (55, 95)]
 a = generate_gardens(10, 100)
 print(a)
 print()
-print(find_smartest(test))
+print(find_smartest_brute_force(test))
